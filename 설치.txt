@@ -1,0 +1,44 @@
+1. npx sv create myDemo
+ - SvelteKit minimal
+ - ● Yes, using TypeScript syntax
+  
+  ◼ prettier			: Formeter
+  ◼ eslint				: 오류체크에 좋음
+  ◻ vitest
+  ◻ playwright
+  ◼ tailwindcss
+  ◼ sveltekit-adapter
+  ◼ drizzle				: 인증에 필요한 ORM
+  ◼ lucia 				: 인증
+  ◻ mdsvex
+  ◻ paraglide
+  ◻ storybook
+ - ◆  tailwindcss: Which plugins would you like to add?
+  ◼ typography
+  ◼ forms (@tailwindcss/forms)
+ - ◆  sveltekit-adapter: Which SvelteKit adapter would you like to use?
+  ○ auto
+  ● node (@sveltejs/adapter-node)
+ - ◆  drizzle: Which database would you like to use?
+  ○ PostgreSQL
+  ○ MySQL
+  ● SQLite
+ - ◆  drizzle: Which SQLite client would you like to use?
+  ○ better-sqlite3
+  ● libSQL (for serverless environments)
+  ○ Turso
+ - ◆  lucia: Do you want to include a demo? (includes a login/register page)
+│  ● Yes / ○ No
+ - ◆  Which package manager do you want to install dependencies with?
+  ● pnpm
+
+  cd myDemo
+  pnpm install
+
+  pnpm dev --open
+
+2. pnpm add tabulator-tables
+
+https://svar.dev/svelte/core/
+ - DateRangePicker
+ 
