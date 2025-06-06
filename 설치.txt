@@ -37,7 +37,10 @@
 
   pnpm dev --open
 
-2. pnpm add tabulator-tables
+2. Tabulator
+  pnpm add tabulator-tables
+  pnpm add -D @types/tabulator-tables
+  pnpm dev
 
 https://svar.dev/svelte/core/
  - DateRangePicker

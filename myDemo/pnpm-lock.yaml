@@ -23,6 +23,9 @@ importers:
       drizzle-orm:
         specifier: ^0.40.0
         version: 0.40.1(@libsql/client@0.14.0)(gel@2.1.0)
+      tabulator-tables:
+        specifier: ^6.3.1
+        version: 6.3.1
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -51,6 +54,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.0
+      '@types/tabulator-tables':
+        specifier: ^6.2.6
+        version: 6.2.6
       drizzle-kit:
         specifier: ^0.30.2
         version: 0.30.6
@@ -1094,6 +1100,9 @@ packages:
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
 
+  '@types/tabulator-tables@6.2.6':
+    resolution: {integrity: sha512-A+2VrqDluI6hNw5dQl1Z7b8pjQfAE62+3Kj0cFfenWzj0T0ewMicPrpPINHL7ASqz9u9FTDn1Mz1Ige2tF4Wlw==}
+
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
@@ -2054,6 +2063,9 @@ packages:
     resolution: {integrity: sha512-kRlbhIlMTijbFmVDQFDeKXPLlX1/ovXwV0I162wRqQhRcygaqDIcu1d/Ese3H2uI+yt3uT8E7ndgDthQv5v5BA==}
     engines: {node: '>=18'}
 
+  tabulator-tables@6.3.1:
+    resolution: {integrity: sha512-qFW7kfadtcaISQIibKAIy0f3eeIXUVi8242Vly1iJfMD79kfEGzfczNuPBN/80hDxHzQJXYbmJ8VipI40hQtfA==}
+
   tailwindcss@4.1.8:
     resolution: {integrity: sha512-kjeW8gjdxasbmFKpVGrGd5T4i40mV5J2Rasw48QARfYeQ8YS9x02ON9SFWax3Qf616rt4Cp3nVNIj6Hd1mP3og==}
 
@@ -2937,6 +2949,8 @@ snapshots:
 
   '@types/resolve@1.20.2': {}
 
+  '@types/tabulator-tables@6.2.6': {}
+
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 20.19.0
@@ -3816,6 +3830,8 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.17
       zimmerframe: 1.1.2
+
+  tabulator-tables@6.3.1: {}
 
   tailwindcss@4.1.8: {}
 
