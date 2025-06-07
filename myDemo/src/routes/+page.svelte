@@ -1,14 +1,25 @@
 <script>
-    import TabulatorTable from '$lib/TabulatorTable.svelte';
+    import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
+    import { minMaxFilterEditor, minMaxFilterFunction } from '$lib/Tabulator/minMaxFilterEditor.js';
 
     const columns = [
-        { title: "Name", field: "name" },
-        { title: "Age asdfg", field: "age" },
-        { title: "Gender", field: "gender" }
+        { title: "ID", field: "id", headerFilter:"number", headerFilterPlaceholder:"at least...", headerFilterFunc:">="},
+        // { title: "Name", field: "name", headerFilter:"input"},
+        { title: "Name", field: "name", headerFilter:true, headerFilterPlaceholder:"Find a Person...", headerFilterFunc:"like", headerFilterLiveFilter:true},
+        { title: "Age", field: "age", headerFilter:minMaxFilterEditor, headerFilterFunc:minMaxFilterFunction, headerFilterLiveFilter:false},
+        { title: "Gender", field: "gender", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];
 
+//         {title:"Name", field:"name", width:150, headerFilter:"input"},
+//         {title:"Progress", field:"progress", width:150, formatter:"progress", sorter:"number", headerFilter:minMaxFilterEditor, headerFilterFunc:minMaxFilterFunction, headerFilterLiveFilter:false},
+//         {title:"Gender", field:"gender", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}},
+//         {title:"Rating", field:"rating", editor:"star", hozAlign:"center", width:100, headerFilter:"number", headerFilterPlaceholder:"at least...", headerFilterFunc:">="},
+//         {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date",  headerFilter:"input"},
+//         {title:"Driver", field:"car", hozAlign:"center", formatter:"tickCross",  headerFilter:"tickCross",  headerFilterParams:{"tristate":true},headerFilterEmptyCheck:function(value){return value === null}},
+//     ],    
+
     const data = [
-        { id: 1, name: "Alice", age: 25, gender: "Female" },
+        { id: 1, name: "Alice", age: 5, gender: "Female" },
         { id: 2, name: "Bob", age: 30, gender: "Male" },
         { id: 3, name: "Charlie", age: 28, gender: "Male" }
     ];
