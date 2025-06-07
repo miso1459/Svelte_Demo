@@ -94,18 +94,17 @@
                 {#if loading}조회 중...{/if}
                 <span class="material-icons">조회</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={saving}>
                 {#if saving}저장 중...{/if}
                 <span class="material-icons">저장</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" on:click={() => history.back()}>
                 <span class="material-icons">닫기</span>
             </button>    
         </div>
     </div>
     <div class="toparea-condition">
         <h2>Tabulator Table with Filters</h2>
-        <a href="/T07.Tabulator_skeleton">Skeleton</a>
     </div>
 
 </div>
