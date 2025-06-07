@@ -45,6 +45,7 @@
   tsconfig.json
    - "noImplicitAny": false, // 추가 타입 모호함 오류 발생 하지 않게
 
-https://svar.dev/svelte/core/
- - DateRangePicker
+3. Flowbite Svelte
+  pnpm i -D flowbite-svelte-icons
+
  
