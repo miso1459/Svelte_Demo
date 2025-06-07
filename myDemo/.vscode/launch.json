@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "pnpm dev 후 크롬 실행",
+      "url": "http://localhost:5173", // 실제 개발 서버 주소로 변경
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "pnpm dev"
+    }
+  ]
+}

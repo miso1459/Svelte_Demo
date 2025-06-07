@@ -4,12 +4,13 @@
 
   export let data: any[] = [];
   export let columns: any[] = [];
-  export let layout: any = 'fitColumns';
+  export let layout: any = 'fitData';
 
   let tableComponent: HTMLDivElement;
+  let table: Tabulator;
 
   onMount(() => {
-    new Tabulator(tableComponent, {
+    table = new Tabulator(tableComponent, {
       data: data, // link data to table
       reactiveData: true, // enable data reactivity
       columns: columns, // define table columns
@@ -34,6 +35,11 @@
       // },
     });
   });
+
+  export function setData(newData) {
+    if (table) table.replaceData(newData);
+  }
+  
 </script>
 
 <div bind:this={tableComponent}></div>
