@@ -4,19 +4,19 @@
     import { onMount } from 'svelte';
 
     const columns = [
-        { title: "ID", field: "id", maxWidth:100, headerFilter:"number", headerFilterPlaceholder:"at least...", headerFilterFunc:">="},
-        { title: "Name", field: "name", minWidth:100, maxWidth:200, headerFilter:true, headerFilterPlaceholder:"Find a Person...", headerFilterFunc:"like", headerFilterLiveFilter:true},
-        { title: "Age", field: "age", maxWidth:100, headerFilter:minMaxFilterEditor, headerFilterFunc:minMaxFilterFunction, headerFilterLiveFilter:false},
-        { title: "Gender", field: "gender", maxWidth:100, editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterPlaceholder:"Select...", headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
+        { title: "ID", field: "id", headerFilter:"number", headerFilterPlaceholder:"at least...", headerFilterFunc:">="},
+        { title: "Name", field: "name", headerFilter:true, headerFilterPlaceholder:"Find a Person...", headerFilterFunc:"like", headerFilterLiveFilter:true},
+        { title: "Age", field: "age", headerFilter:minMaxFilterEditor, headerFilterFunc:minMaxFilterFunction, headerFilterLiveFilter:false},
+        { title: "Gender", field: "gender", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];  
 
-    let layout = 'fitColumns';
     let data = [];
     let loading = true;
     let error = '';
 
     onMount(async () => {
         try {
+            // 예시: 실제 API 엔드포인트로 변경하세요.
             const res = await fetch('/api/users');
             if (!res.ok) throw new Error('데이터를 불러오지 못했습니다.');
             data = await res.json();
@@ -26,10 +26,6 @@
             loading = false;
         }
     });
-
-    $: layout = Array.isArray(data)
-        ? (loading == false && data.length > 1 ? 'fitData' : 'fitColumns')
-        : 'fitColumns';
 </script>
 
 <style>
@@ -51,15 +47,14 @@
     <p>This is a simple example of using Tabulator with Svelte.</p>
 </div>
 <div class="tabulator-container" style="height: calc(100vh - var(--header-height, 100px)); 
-                                        width: calc(100vw - 6px);">
-    <div class="tabulator-table-el" style="margin: 0px 3px 0px 3px;">
+                                        width: calc(100vw - 5px);">
+    <div class="tabulator-table-el">
         {#if loading}
             <p>Loading...</p>
-        {:else if error}
-            <TabulatorTable {columns} {data} />
+        <!-- {:else if error}
+            <TabulatorTable {columns} {data} /> -->
         {:else}
-            <p>{layout}</p>
-            <TabulatorTable {columns} {data} {layout} />
+            <TabulatorTable {columns} {data} />
         {/if}
     </div>
 </div>

@@ -4,6 +4,7 @@
 
   export let data: any[] = [];
   export let columns: any[] = [];
+  export let layout: any = 'fitColumns';
 
   let tableComponent: HTMLDivElement;
 
@@ -12,13 +13,13 @@
       data: data, // link data to table
       reactiveData: true, // enable data reactivity
       columns: columns, // define table columns
-      layout: 'fitColumns',
-      responsiveLayout: 'hide', // hide columns on smaller screens
+      layout: layout,
+      // responsiveLayout: 'hide', // hide columns on smaller screens
       height: '100%', // set table height
 
       placeholder:"No Data Set", // placeholder text when no data is available
       headerFilterPlaceholder:"Search...", // placeholder for header filters
-      headerFilterLiveFilter: true, // enable live filtering on header filters
+      // headerFilterLiveFilter: true, // enable live filtering on header filters
       headerFilterLiveFilterFunc: "like", // use 'like' function for live filtering
 
       headerFilterLiveFilterDelay:600, // delay for live filtering
