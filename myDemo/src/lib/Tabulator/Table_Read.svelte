@@ -9,15 +9,7 @@
   let darkMode: boolean = false;
   let tableComponent: HTMLDivElement;
   let table: Tabulator;
-
-  // 다크 모드 여부 체크
-  if (typeof window !== 'undefined') {
-    darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      darkMode = e.matches;
-    });
-  }
-  
+ 
   // 스타일시트 경로를 반응형으로 결정
   $: tabulatorCss = darkMode
     ? [
@@ -28,6 +20,14 @@
       ];
 
   onMount(() => {
+    // 다크 모드 여부 체크
+    if (typeof window !== 'undefined') {
+      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        darkMode = e.matches;
+      });
+    }
+
     table = new Tabulator(tableComponent, {
       data: data,
       reactiveData: true,
