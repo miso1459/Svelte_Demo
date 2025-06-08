@@ -11,7 +11,9 @@ export const GET: RequestHandler = async ({ url }) => {
         { id: 2, name: 'Bob', age: 32, gender: 'male', date: '2024-06-02' },
         { id: 3, name: 'Charlie', age: 28, gender: 'male', date: '2024-06-03' },
         { id: 4, name: 'Diana', age: 22, gender: 'female', date: '2024-06-04' },
-        { id: 5, name: 'Eve fskadjf;ajsdkfj;asdjf;asldjfl;ksdjfk;jasd;lfj;lskdjfsdaf;jsd', age: 35, gender: 'female', date: '2024-06-05' }
+        { id: 5, name: 'Eve fskadjf;ajsdkfj;asdjf;asldjfl;ksdjfk;jasd;lfj;lskdjfsdaf;jsd', age: 35, gender: 'female', date: '2024-06-05' },
+        { id: 6, name: searchValue, age: 35, gender: 'female', date: dateFrom },
+        { id: 6, name: dateFrom, age: 35, gender: 'female', date: dateTo }
     ];
 
     // 날짜 필터
