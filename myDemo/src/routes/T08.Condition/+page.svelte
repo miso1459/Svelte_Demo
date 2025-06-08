@@ -119,7 +119,6 @@
     <div class="toparea-tool">
         <div class="toparea-title">
             <h1>프로그램 이름...</h1>
-            <div><a href="/T08.Condition">Skeleton</a></div>
         </div>
         <div class="toparea-btns">
             <button type="button" class="btn preset-outlined-primary-500" on:click={fetchData} disabled={loading}>
