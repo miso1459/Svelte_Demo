@@ -20,7 +20,13 @@
     let loading = $state(false);
     let saving = $state(false);
     let error = $state('');
-    let tableRef = $state();
+    // Define the type for TabulatorTable instance with setData method
+    type TabulatorTableInstance = {
+        setData: (data: any[]) => void;
+        // add other methods if needed
+    };
+    
+    let tableRef = $state<TabulatorTableInstance | null>(null);
 
     // 날짜가 변경될 때 searchValue에 자동 입력
     $effect(() => {
@@ -49,7 +55,7 @@
             
             console.log('fetchData() - 완료');
         } catch (e) {
-            error = e.message;
+            error = e instanceof Error ? e.message : String(e);
         } finally {
             loading = false;
         }
@@ -61,7 +67,7 @@
         try {
             fetchData();
         } catch (e) {
-            error = e.message;
+            error = e instanceof Error ? e.message : String(e);
         } finally {
             saving = false;
         }

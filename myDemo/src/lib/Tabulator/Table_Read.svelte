@@ -11,7 +11,7 @@
   let { data = [], columns = [], layout = 'fitData' }: Props = $props();
   
   let darkMode: boolean = $state(false);
-  let tableComponent: HTMLDivElement = $state();
+  let tableComponent: HTMLDivElement | undefined = $state();
   let table: Tabulator;
  
   // 스타일시트 경로를 반응형으로 결정
@@ -32,27 +32,26 @@
       });
     }
 
-    table = new Tabulator(tableComponent, {
-      data: data,
-      //reactiveData: true,
-      columns: columns,
-      layout: layout,
-      height: '100%',
-      placeholder: "No Data Set",
-      headerFilterPlaceholder: "Search...",
-      headerFilterLiveFilterFunc: "like",
-      headerFilterLiveFilterDelay: 600,
-      rowHeader: {
-        formatter: "rownum",
-        headerSort: false,
-        hozAlign: "center",
-        resizable: false,
-        frozen: true,
-        width: 40,
-        minWidth: 40,
-        maxWidth: 100
-      }
-    });
+    if (tableComponent) {
+      table = new Tabulator(tableComponent, {
+        data: data,
+        //reactiveData: true,
+        columns: columns,
+        layout: layout,
+        height: '100%',
+        placeholder: "No Data Set",
+        headerFilterLiveFilterDelay: 600,
+        rowHeader: {
+          formatter: "rownum",
+          headerSort: false,
+          hozAlign: "center",
+          resizable: false,
+          frozen: true,
+          width: 40,
+          minWidth: 40
+        }
+      });
+    }
   });
 
   let isTableReady = false;
