@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
     import { minMaxFilterEditor, minMaxFilterFunction } from '$lib/Tabulator/minMaxFilterEditor.js';
 
@@ -9,13 +11,13 @@
         { title: "Gender", field: "gender", maxWidth:100, editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterPlaceholder:"Select...", headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];  
 
-    let data = [];
-    let loading = false;
-    let saving = false;
-    let error = '';
+    let data = $state([]);
+    let loading = $state(false);
+    let saving = $state(false);
+    let error = $state('');
 
     // TabulatorTable에 접근할 수 있도록 ref 선언
-    let tableRef;
+    let tableRef = $state();
 
     async function fetchData() {
         loading = true;
@@ -44,9 +46,11 @@
     }    
 
     // data가 변경될 때 TabulatorTable에 적용
-    $: if (tableRef && typeof tableRef.setData === 'function') {
-        tableRef.setData(data);
-    }
+    run(() => {
+        if (tableRef && typeof tableRef.setData === 'function') {
+            tableRef.setData(data);
+        }
+    });
 </script>
 
 <style>
@@ -90,15 +94,15 @@
             <h3>프로그램 이름...</h3>
         </div>
         <div class="toparea-btns">
-            <button type="button" class="btn preset-outlined-primary-500" on:click={fetchData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={fetchData} disabled={loading}>
                 {#if loading}조회 중...{/if}
                 <span class="material-icons">조회</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={saving}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={saveData} disabled={saving}>
                 {#if saving}저장 중...{/if}
                 <span class="material-icons">저장</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={() => history.back()}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={() => history.back()}>
                 <span class="material-icons">닫기</span>
             </button>    
         </div>

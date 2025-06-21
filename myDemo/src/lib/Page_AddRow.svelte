@@ -1,24 +1,34 @@
-<script>
+<script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
     
-    // columns, fetchData의 api 주소는 외부에서 전달받음
-    export let columns = [];
-    export let api = '';
+    
+    interface Props {
+        // columns, fetchData의 api 주소는 외부에서 전달받음
+        columns?: any;
+        api?: string;
+        title?: import('svelte').Snippet;
+    }
 
-    let dateFrom = '';
-    let dateTo = '';
-    let searchValue = '';
-    let data = [];
-    let loading = false;
-    let saving = false;
+    let { columns = [], api = '', title }: Props = $props();
+
+    let dateFrom = $state('');
+    let dateTo = $state('');
+    let searchValue = $state('');
+    let data = $state([]);
+    let loading = $state(false);
+    let saving = $state(false);
     let adding = false;
-    let error = '';
-    let tableRef;
+    let error = $state('');
+    let tableRef = $state();
 
     // 날짜가 변경될 때 searchValue에 자동 입력
-    $: if (dateFrom || dateTo) {
-        searchValue = [dateFrom, dateTo].filter(Boolean).join(' ~ ');
-    }
+    run(() => {
+        if (dateFrom || dateTo) {
+            searchValue = [dateFrom, dateTo].filter(Boolean).join(' ~ ');
+        }
+    });
 
     async function fetchData() {
         loading = true;
@@ -72,9 +82,11 @@
     }
 
     // data가 변경될 때 TabulatorTable에 적용
-    $: if (tableRef && typeof tableRef.setData === 'function') {
-        tableRef.setData(data);
-    }
+    run(() => {
+        if (tableRef && typeof tableRef.setData === 'function') {
+            tableRef.setData(data);
+        }
+    });
 </script>
 
 <style>
@@ -127,18 +139,18 @@
 <div class="TopArea">
     <div class="toparea-tool">
         <div class="toparea-title">
-            <slot name="title"><h1>프로그램 이름...</h1></slot>
+            {#if title}{@render title()}{:else}<h1>프로그램 이름...</h1>{/if}
         </div>
         <div class="toparea-btns">
-            <button type="button" class="btn preset-outlined-primary-500" on:click={fetchData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={fetchData} disabled={loading}>
                 {#if loading}조회 중...{/if}
                 <span class="material-icons">조회</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={saveData} disabled={loading}>
                 {#if saving}저장 중...{/if}
                 <span class="material-icons">저장</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={() => history.back()}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={() => history.back()}>
                 <span class="material-icons">닫기</span>
             </button>    
         </div>
@@ -154,7 +166,7 @@
                 type="text"
                 placeholder="입력..."
                 bind:value={searchValue}
-                on:keydown={(e) => { if (e.key === 'Enter') addRow(); }}
+                onkeydown={(e) => { if (e.key === 'Enter') addRow(); }}
             />
         </div>
     </div>

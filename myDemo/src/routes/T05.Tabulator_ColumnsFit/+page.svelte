@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
     import { minMaxFilterEditor, minMaxFilterFunction } from '$lib/Tabulator/minMaxFilterEditor.js';
     import { onMount } from 'svelte';
@@ -10,10 +12,10 @@
         { title: "Gender", field: "gender", maxWidth:100, editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterPlaceholder:"Select...", headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];  
 
-    let layout = 'fitColumns';
-    let data = [];
-    let loading = true;
-    let error = '';
+    let layout = $state('fitColumns');
+    let data = $state([]);
+    let loading = $state(true);
+    let error = $state('');
 
     onMount(async () => {
         try {
@@ -27,9 +29,11 @@
         }
     });
 
-    $: layout = Array.isArray(data)
-        ? (loading == false && data.length > 1 ? 'fitData' : 'fitColumns')
-        : 'fitColumns';
+    run(() => {
+        layout = Array.isArray(data)
+            ? (loading == false && data.length > 1 ? 'fitData' : 'fitColumns')
+            : 'fitColumns';
+    });
 </script>
 
 <style>

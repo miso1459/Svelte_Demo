@@ -10,8 +10,8 @@
         { title: "Gender", field: "gender", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];  
 
-    let data = [];
-    let loading = true;
+    let data = $state([]);
+    let loading = $state(true);
     let error = '';
 
     onMount(async () => {

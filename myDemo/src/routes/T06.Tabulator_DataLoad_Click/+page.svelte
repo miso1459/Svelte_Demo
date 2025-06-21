@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
     import { minMaxFilterEditor, minMaxFilterFunction } from '$lib/Tabulator/minMaxFilterEditor.js';
 
@@ -9,12 +11,12 @@
         { title: "Gender", field: "gender", maxWidth:100, editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterPlaceholder:"Select...", headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}}
     ];  
 
-    let data = [];
-    let loading = false;
-    let error = '';
+    let data = $state([]);
+    let loading = $state(false);
+    let error = $state('');
 
     // TabulatorTable에 접근할 수 있도록 ref 선언
-    let tableRef;
+    let tableRef = $state();
 
     async function fetchData() {
         loading = true;
@@ -31,9 +33,11 @@
     }
 
     // data가 변경될 때 TabulatorTable에 적용
-    $: if (tableRef && typeof tableRef.setData === 'function') {
-        tableRef.setData(data);
-    }
+    run(() => {
+        if (tableRef && typeof tableRef.setData === 'function') {
+            tableRef.setData(data);
+        }
+    });
 </script>
 
 <style>
@@ -60,7 +64,7 @@
 
 <div class="TopArea" style="height: var(--header-height, 100px);">
     <h1>Tabulator Example</h1>
-    <button class="fetch-btn" on:click={fetchData} disabled={loading}>
+    <button class="fetch-btn" onclick={fetchData} disabled={loading}>
         {#if loading}불러오는 중...{/if}
         {#if !loading}데이터 가져오기{/if}
     </button>

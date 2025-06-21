@@ -2,22 +2,26 @@
   import { TabulatorFull as Tabulator } from 'tabulator-tables';
   import { onMount } from 'svelte';
 
-  export let data: any[] = [];
-  export let columns: any[] = [];
-  export let layout: any = 'fitData';
+  interface Props {
+    data?: any[];
+    columns?: any[];
+    layout?: any;
+  }
+
+  let { data = [], columns = [], layout = 'fitData' }: Props = $props();
   
-  let darkMode: boolean = false;
-  let tableComponent: HTMLDivElement;
+  let darkMode: boolean = $state(false);
+  let tableComponent: HTMLDivElement = $state();
   let table: Tabulator;
  
   // 스타일시트 경로를 반응형으로 결정
-  $: tabulatorCss = darkMode
+  let tabulatorCss = $derived(darkMode
     ? [
         '/tabulator_midnight.css'
       ]
     : [
         '/tabulator_simple.css'
-      ];
+      ]);
 
   onMount(() => {
     // 다크 모드 여부 체크
@@ -30,7 +34,7 @@
 
     table = new Tabulator(tableComponent, {
       data: data,
-      reactiveData: true,
+      //reactiveData: true,
       columns: columns,
       layout: layout,
       height: '100%',
@@ -51,8 +55,20 @@
     });
   });
 
+  let isTableReady = false;
+
   export function setData(newData) {
-    if (table) table.replaceData(newData);
+    // tableBuilt 이벤트는 테이블 생성 시 1회만 등록
+    if (!isTableReady) {
+        table.on("tableBuilt", function () {
+            isTableReady = true;
+            table.replaceData(newData.slice());
+        });
+        return;
+    }
+
+    // 테이블이 이미 준비된 경우 바로 데이터 교체
+    table.replaceData(newData.slice());
   }
 
   export function addRow(rowData) {

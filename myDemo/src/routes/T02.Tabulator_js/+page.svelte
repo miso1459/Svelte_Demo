@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    let tableEl;
+    let tableEl = $state();
 
     const tabulatorCss = "https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator_site.min.css";
     const tabulatorJs = "https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js";

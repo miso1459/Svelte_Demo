@@ -11,7 +11,7 @@
   </div>
 
 <div>
-    <a href="/Login" style="width: calc(100vw - 10px);; justify-content: flex-start; margin: 3px 5px 2px 15px;">
+    <a href="/00.Login" style="width: calc(100vw - 10px);; justify-content: flex-start; margin: 3px 5px 2px 15px;">
     <button type="button" class="btn preset-tonal-primary" style="width: 100%; justify-content: flex-start;">
         모듈
     </button>

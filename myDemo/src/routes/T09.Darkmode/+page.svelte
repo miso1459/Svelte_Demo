@@ -1,18 +1,22 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import TabulatorTable from '$lib/Tabulator/Table_Read.svelte';
     import { minMaxFilterEditor, minMaxFilterFunction } from '$lib/Tabulator/minMaxFilterEditor.js';
 	import { readonly } from 'svelte/store';
 
     // Contition
     
-    let dateFrom = '';
-    let dateTo = '';
-    let searchValue = '';
+    let dateFrom = $state('');
+    let dateTo = $state('');
+    let searchValue = $state('');
 
     // 날짜가 변경될 때 textValue에 자동 입력
-    $: if (dateFrom || dateTo) {
-        searchValue = [dateFrom, dateTo].filter(Boolean).join(' ~ ');
-    }    
+    run(() => {
+        if (dateFrom || dateTo) {
+            searchValue = [dateFrom, dateTo].filter(Boolean).join(' ~ ');
+        }
+    });    
 
     // Tabulator
 
@@ -27,13 +31,13 @@
         { title: "Date", field: "date", maxWidth:100, headerFilter:true, clearable:true}
     ];  
 
-    let data = [];
-    let loading = false;
-    let saving = false;
-    let error = '';
+    let data = $state([]);
+    let loading = $state(false);
+    let saving = $state(false);
+    let error = $state('');
 
     // TabulatorTable에 접근할 수 있도록 ref 선언
-    let tableRef;
+    let tableRef = $state();
 
     async function fetchData() {
         loading = true;
@@ -67,9 +71,11 @@
     }    
 
     // data가 변경될 때 TabulatorTable에 적용
-    $: if (tableRef && typeof tableRef.setData === 'function') {
-        tableRef.setData(data);
-    }
+    run(() => {
+        if (tableRef && typeof tableRef.setData === 'function') {
+            tableRef.setData(data);
+        }
+    });
 
 </script>
 
@@ -127,15 +133,15 @@
             <div><a href="/T08.Condition">Skeleton</a></div>
         </div>
         <div class="toparea-btns">
-            <button type="button" class="btn preset-outlined-primary-500" on:click={fetchData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={fetchData} disabled={loading}>
                 {#if loading}조회 중...{/if}
                 <span class="material-icons">조회</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={saveData} disabled={loading}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={saveData} disabled={loading}>
                 {#if saving}저장 중...{/if}
                 <span class="material-icons">저장</span>
             </button>    
-            <button type="button" class="btn preset-outlined-primary-500" on:click={() => history.back()}>
+            <button type="button" class="btn preset-outlined-primary-500" onclick={() => history.back()}>
                 <span class="material-icons">닫기</span>
             </button>    
         </div>

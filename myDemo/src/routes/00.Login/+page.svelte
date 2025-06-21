@@ -1,8 +1,10 @@
 <script>
-  let username = '';
-  let password = '';
-  let error = '';
-  let loading = false;
+  import { preventDefault } from 'svelte/legacy';
+
+  let username = $state('');
+  let password = $state('');
+  let error = $state('');
+  let loading = $state(false);
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -35,7 +37,7 @@
 <div class="wrapper">
   <div class="container">
     <h1>Welcome</h1>
-    <form class="form" on:submit|preventDefault={handleLogin}>
+    <form class="form" onsubmit={preventDefault(handleLogin)}>
       <input type="text" placeholder="Username" bind:value={username} />
       <input type="password" placeholder="Password" bind:value={password} />
       <button type="submit" id="login-button" disabled={loading}>
