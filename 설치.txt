@@ -55,3 +55,8 @@
     node -r dotenv/config build
     -- Node.js v20.6+를 사용하는 경우 --env-file대신 플래그를 사용할 수 있습니다.
     node --env-file=.env build
+
+5. IIS에서 node 연결
+ - 가상디렉토리 추가
+ - URL 재작성 실행 - 규칙추가 - 역발향프록시: URL 설정 http://localhost:3000
+   : 더블클릭하여 수정모드로 변경하고 "작업유형"을 '리다이렉션'으로 변경
