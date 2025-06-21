@@ -13,10 +13,10 @@
   // 스타일시트 경로를 반응형으로 결정
   $: tabulatorCss = darkMode
     ? [
-        'node_modules/tabulator-tables/dist/css/tabulator_midnight.css'
+        '/tabulator_midnight.css'
       ]
     : [
-        'node_modules/tabulator-tables/dist/css/tabulator_simple.css'
+        '/tabulator_simple.css'
       ];
 
   onMount(() => {
