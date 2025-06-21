@@ -11,6 +11,7 @@
     let data = [];
     let loading = false;
     let saving = false;
+    let adding = false;
     let error = '';
     let tableRef;
 
@@ -47,6 +48,26 @@
             error = e.message;
         } finally {
             saving = false;
+        }
+    }
+
+    async function addRow() {
+        adding = true;
+        error = '';
+        try {
+            tableRef.addRow({
+                id: '',
+                name: searchValue,
+                age: '',
+                gender: '',
+                date: ''
+            });
+
+            searchValue = '';
+        } catch (e) {
+            error = e.message;
+        } finally {
+            adding = false;
         }
     }
 
@@ -128,7 +149,13 @@
             <input class="input" type="date" bind:value={dateTo} />
         </div>
         <div class="toparea-condition_text">
-            <input class="input" type="text" placeholder="검색..." bind:value={searchValue} />
+            <input
+                class="input"
+                type="text"
+                placeholder="입력..."
+                bind:value={searchValue}
+                on:keydown={(e) => { if (e.key === 'Enter') addRow(); }}
+            />
         </div>
     </div>
 </div>

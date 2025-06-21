@@ -11,7 +11,7 @@
   </div>
 
 <div>
-    <a href="/Login" style="width: calc(100vw - 10px);; justify-content: flex-start; margin: 3px 5px 2px 5px;">
+    <a href="/Login" style="width: calc(100vw - 10px);; justify-content: flex-start; margin: 3px 5px 2px 15px;">
     <button type="button" class="btn preset-tonal-primary" style="width: 100%; justify-content: flex-start;">
         모듈
     </button>
@@ -22,4 +22,10 @@
             T10.Page_Query 이동
         </button>
     </a>
-</div>
+    <a href="/T11.AddRow" style="display: block; width: calc(100vw - 30px); margin: 3px 5px 2px 25px;">
+        <button type="button" class="btn preset-outlined-primary-500" style="width: 100%; justify-content: flex-start;">
+            T11.AddRow 이동
+        </button>
+    </a>
+
+  </div>

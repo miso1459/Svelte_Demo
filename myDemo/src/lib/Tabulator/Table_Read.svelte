@@ -54,6 +54,11 @@
   export function setData(newData) {
     if (table) table.replaceData(newData);
   }
+
+  export function addRow(rowData) {
+    if (table) table.addRow(rowData, true);
+  }
+
 </script>
 
 <div bind:this={tableComponent}></div>
