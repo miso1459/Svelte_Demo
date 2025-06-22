@@ -11,5 +11,5 @@
     ];
 </script>
 
-<Page_Query {columns} api="/api/users" />
+<Page_Query {columns} api="/api/samples" />
 

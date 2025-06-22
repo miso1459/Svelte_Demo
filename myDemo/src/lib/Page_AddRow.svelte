@@ -21,14 +21,19 @@
     let saving = $state(false);
     let adding = false;
     let error = $state('');
-    let tableRef = $state();
+    // Adjust the type according to the actual TabulatorTable instance type if available
+    let tableRef = $state<any>();
 
     // 날짜가 변경될 때 searchValue에 자동 입력
-    run(() => {
+    $effect(() => {
         if (dateFrom || dateTo) {
             searchValue = [dateFrom, dateTo].filter(Boolean).join(' ~ ');
         }
     });
+
+    // $inspect(api).with((_type, value) => {
+    //     console.log(value);
+    // });    
 
     async function fetchData() {
         loading = true;
@@ -39,11 +44,12 @@
                 dateTo,
                 searchValue
             });
+            
             const res = await fetch(`${api}?${params.toString()}`);
             if (!res.ok) throw new Error('데이터를 불러오지 못했습니다.');
             data = await res.json();
         } catch (e) {
-            error = e.message;
+            error = e instanceof Error ? e.message : String(e);
         } finally {
             loading = false;
         }
@@ -55,7 +61,7 @@
         try {
             fetchData();
         } catch (e) {
-            error = e.message;
+            error = e instanceof Error ? e.message : String(e);
         } finally {
             saving = false;
         }
@@ -75,14 +81,14 @@
 
             searchValue = '';
         } catch (e) {
-            error = e.message;
+            error = e instanceof Error ? e.message : String(e);
         } finally {
             adding = false;
         }
     }
 
     // data가 변경될 때 TabulatorTable에 적용
-    run(() => {
+    $effect(() => {
         if (tableRef && typeof tableRef.setData === 'function') {
             tableRef.setData(data);
         }
